@@ -16,13 +16,16 @@ public class InventoryController : Controller
 
     public IActionResult InventoryPage()
     {
-        IEnumerable<InventoryPage> objInventoryList = _db.Inventory;
+        
+        IEnumerable< InventoryPage> objInventoryList = _db.Inventory.ToList();
+    
+        return View(objInventoryList);
+    }
+    public IActionResult InventoryAdd()
+    {
+        //_db.Inventory.Add(new Models.InventoryPage { Id = 1, Name = "Test", Price = 1.3F, PurchaseDate = DateTime.Now, Type = "dd" });
+        //_db.SaveChanges();
         return View();
     }
-    //public IActionResult InventoryAdd()
-    //{
-    //    var objInventoryList = Inventory;
-    //    return View();
-    //}
 }
 
