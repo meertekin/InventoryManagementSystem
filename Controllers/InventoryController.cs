@@ -1,7 +1,7 @@
 ﻿//using System.Diagnostics;
 using InventoryManagementSystem.Data;
 using Microsoft.AspNetCore.Mvc;
-//using InventoryManagementSystem.Models;
+using InventoryManagementSystem.Models;
 
 namespace InventoryManagementSystem.Controllers;
 
@@ -16,13 +16,13 @@ public class InventoryController : Controller
 
     public IActionResult InventoryPage()
     {
-        //var objInventoryList = _db.
+        IEnumerable<InventoryPage> objInventoryList = _db.Inventory;
         return View();
     }
-    public IActionResult InventoryAdd()
-    {
-        //var objInventoryList = _db.
-        return View();
-    }
+    //public IActionResult InventoryAdd()
+    //{
+    //    var objInventoryList = Inventory;
+    //    return View();
+    //}
 }
 
