@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model IEnumerable<InventoryPage>
 
 <div class="text-center">
     <h1>Inventory</h1>
@@ -13,12 +14,31 @@
                 <th scope="col">Purchase Date</th>
                 <th scope="col">Price</th>
                 <th scope="col">
-                    <button class="btn btn-warning"><a style ="text-decoration:none; color:black" asp-controller="Inventory" asp-action="InventoryAdd">Add New Item</a></button>
+                    <button class="btn btn-warning"><a style="text-decoration:none; color:black" asp-controller="Inventory" asp-action="InventoryAdd">Add New Item</a></button>
                 </th>
             </tr>
         </thead>
+<<<<<<< Updated upstream
         
         @*Insert Dynamic table*@
+=======
+        <tbody>
+            @foreach(var obj in Model)
+            {
+                <tr>
+                    <td scope="col">@obj.Id</td>
+                    <td scope="col">@obj.Name</td>
+                    <td scope="col">@obj.Type</td>
+                    <td scope="col">@obj.PurchaseDate</td>
+                    <td scope="col">@obj.Price</td>
+                    <td scope="col">
+                        <button class="btn btn-warning"><a style="text-decoration:none; color:black" asp-controller="Inventory" asp-action="InventoryAdd">Edit</a></button>
+                        <button class="btn btn-danger"><a style="text-decoration:none; color:black">Delete</a></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+>>>>>>> Stashed changes
     </table>
 
 </div>
