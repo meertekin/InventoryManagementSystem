@@ -41,6 +41,7 @@ public class InventoryController : Controller
         return RedirectToAction("InventoryPage");
     }
 
+    //GET
     public IActionResult InventoryEdit(int? Id)
     {
         if(Id==null || Id == 0)
@@ -55,6 +56,20 @@ public class InventoryController : Controller
             return NotFound();
         }
         return View(inventoryFromDb);
+    }
+
+    //POST
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult InventoryEdit(InventoryPage obj)
+    {
+        _db.Inventory.Where(x => obj.Id == x.Id).First().Name = obj.Name;
+        _db.Inventory.Where(x => obj.Id == x.Id).First().Price = obj.Price;
+        _db.Inventory.Where(x => obj.Id == x.Id).First().PurchaseDate = obj.PurchaseDate;
+        _db.Inventory.Where(x => obj.Id == x.Id).First().Type = obj.Type;
+
+        _db.SaveChanges();
+        return RedirectToAction("InventoryPage");
     }
 }
 
