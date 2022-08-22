@@ -5,8 +5,10 @@ using InventoryManagementSystem.Models;
 
 namespace InventoryManagementSystem.Controllers;
 
+
 public class InventoryController : Controller
 {
+    private int id = 7;
     private readonly ApplicationDbContext _db;
 
     public InventoryController(ApplicationDbContext db)
@@ -18,14 +20,28 @@ public class InventoryController : Controller
     {
         
         IEnumerable< InventoryPage> objInventoryList = _db.Inventory.ToList();
-    
+
         return View(objInventoryList);
     }
+
+    //GET
     public IActionResult InventoryAdd()
     {
-        //_db.Inventory.Add(new Models.InventoryPage { Id = 1, Name = "Test", Price = 1.3F, PurchaseDate = DateTime.Now, Type = "dd" });
-        //_db.SaveChanges();
         return View();
     }
+
+    //POST
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult InventoryAdd(InventoryPage obj)
+    {
+        
+        _db.Inventory.Add(new Models.InventoryPage { Id = id, Name = obj.Name, Price = obj.Price, PurchaseDate = obj.PurchaseDate, Type = obj.Type });
+        id++;
+        _db.SaveChanges();
+        
+        return RedirectToAction("InventoryPage");
+    }
+
 }
 
