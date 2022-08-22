@@ -8,7 +8,6 @@ namespace InventoryManagementSystem.Controllers;
 
 public class InventoryController : Controller
 {
-    private int id = 7;
     private readonly ApplicationDbContext _db;
 
     public InventoryController(ApplicationDbContext db)
@@ -36,12 +35,26 @@ public class InventoryController : Controller
     public IActionResult InventoryAdd(InventoryPage obj)
     {
         
-        _db.Inventory.Add(new Models.InventoryPage { Id = id, Name = obj.Name, Price = obj.Price, PurchaseDate = obj.PurchaseDate, Type = obj.Type });
-        id++;
+        _db.Inventory.Add(new Models.InventoryPage {Name = obj.Name, Price = obj.Price, PurchaseDate = obj.PurchaseDate, Type = obj.Type });
+       
         _db.SaveChanges();
-        
         return RedirectToAction("InventoryPage");
     }
 
+    public IActionResult InventoryEdit(int? Id)
+    {
+        if(Id==null || Id == 0)
+        {
+            return NotFound();
+        }
+        var inventoryFromDb = _db.Inventory.Find(Id);
+
+
+        if (inventoryFromDb == null)
+        {
+            return NotFound();
+        }
+        return View(inventoryFromDb);
+    }
 }
 
